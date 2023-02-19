@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- 使用自定义的搜索组件 -->
+		<!-- <my-search :bgcolor="black" :radius="3"></my-search> -->
+		<my-search @click="gotoSearch"></my-search>
+
 		<view class="scroll-view-container">
 			<!-- 左侧的滚动视图区域 包裹性质容器-->
 			<!-- 左侧的滚动视图区域 -->
@@ -55,8 +59,8 @@
 		onLoad() {
 			// 2.获取当前系统(设备)的信息
 			const sysInfo = uni.getSystemInfoSync()
-			// 3.为 wh 窗口可用高度动态赋值
-			this.wh = sysInfo.windowHeight
+			// 3.为 wh 获取窗口可用高度动态赋值 - search高度(50)
+			this.wh = sysInfo.windowHeight - 50
 			// 2.调用获取分类列表数据的方法
 			this.getCateList()
 		},
@@ -64,9 +68,7 @@
 			//获取分类列表的数据方法
 			async getCateList() {
 				// 发起请求
-				const {
-					data: res
-				} = await uni.$http.get('/api/public/v1/categories')
+				const {data: res} = await uni.$http.get('/api/public/v1/categories')
 				// 判断是否获取失败，调用提示请求失败消息方法
 				if (res.meta.status !== 200) return uni.$showMsg()
 				// 获取成功，转存数据
@@ -91,6 +93,14 @@
 			gotoGoodsList(item3) {
 				uni.navigateTo({
 					url: '/subpkg/goods_list/goods_list?cid=' + item3.cat_id
+				})
+			},
+			// 跳转到分包中的搜索页面
+			gotoSearch() {
+				// 调用跳转API
+				uni.navigateTo({
+					// 指定跳转页面
+					url: '/subpkg/search/search'
 				})
 			}
 
