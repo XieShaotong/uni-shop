@@ -32,8 +32,7 @@
 				<view class="floor-img-box">
 					<!-- 左侧大图片的盒子 -->
 					<navigator class="left-img-box" :url="item.product_list[0].url">
-						<image :src="item.product_list[0].image_src"
-							:style="{width: item.product_list[0].image_width + 'rpx'}" mode="widthFix"></image>
+						<image :src="item.product_list[0].image_src" :style="{width: item.product_list[0].image_width + 'rpx'}" mode="widthFix"></image>
 					</navigator>
 					<!-- 右侧 4 个小图片的盒子 -->
 					<view class="right-img-box">
@@ -74,9 +73,7 @@
 			// 3. 获取轮播图数据的方法
 			async getSwiperList() {
 				// 3.1 发起请求
-				const {
-					data: res
-				} = await uni.$http.get('/api/public/v1/home/swiperdata')
+				const {data: res} = await uni.$http.get('/api/public/v1/home/swiperdata')
 				// 3.2 请求失败		调用封装的展示消息提示的方法
 				if (res.meta.status !== 200) return uni.$showMsg()
 				// 3.3 请求成功，为 data 中的数据赋值
@@ -85,9 +82,7 @@
 			// 3. 在 methods 中定义获取数据的方法
 			async getNavList() {
 				// 3.1 发起请求
-				const {
-					data: res
-				} = await uni.$http.get('/api/public/v1/home/catitems')
+				const {data: res} = await uni.$http.get('/api/public/v1/home/catitems')
 				// 3.2 请求失败		调用封装的展示消息提示的方法
 				if (res.meta.status !== 200) return uni.$showMsg()
 				// 3.3 请求成功，为 data 中的数据赋值
@@ -105,9 +100,7 @@
 			// 3. 定义获取楼层列表数据的方法
 			async getFloorList() {
 				// 3.1 发起请求
-				const {
-					data: res
-				} = await uni.$http.get('/api/public/v1/home/floordata')
+				const {data: res} = await uni.$http.get('/api/public/v1/home/floordata')
 				// 3.2 请求失败		调用封装的展示消息提示的方法
 				if (res.meta.status !== 200) return uni.$showMsg()
 				// 通过双层 forEach 循环，处理 URL 地址
