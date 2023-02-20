@@ -109,9 +109,11 @@
 		},
 		data() {
 			return {
-				show: false,
-				showSync: false,
-				searchVal: ''
+				// 实现搜索框自动获取焦点
+				show: true,
+				// 实现搜索框自动获取焦点
+				showSync: true,
+				searchVal: ""
 			}
 		},
 		computed: {
@@ -235,7 +237,7 @@
 		flex-direction: row;
 		position: relative;
 		padding: 10px;
-		// background-color: #fff;
+		background-color: #C00000;
 	}
 
 	.uni-searchbar__box {
