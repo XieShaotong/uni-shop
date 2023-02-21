@@ -75,9 +75,7 @@
 				// 发起请求，获取搜索建议列表
 				const {
 					data: res
-				} = await uni.$http.get('/api/public/v1/goods/qsearch', {
-					query: this.kw
-				})
+				} = await uni.$http.get('/api/public/v1/goods/qsearch', {query: this.kw})
 				if (res.meta.status !== 200) return uni.$showMsg()
 				this.searchResults = res.message
 
@@ -122,6 +120,7 @@
 				})
 			},
 			// 长按关键词删除(传参：数组historyList和索引i)
+<<<<<<< HEAD
 			onLongPress(historyList,i){
 				// 拿到数组下标
 				var index = historyList.indexOf(i)
@@ -139,6 +138,25 @@
 							uni.setStorageSync('kw', JSON.stringify(historyList))
 							uni.$showMsg('删除成功！')
 						}else if(res.cancel){
+=======
+			onLongPress(historyList, i) {
+				// 拿到数组下标
+				var index = historyList.indexOf(i)
+				uni.showModal({
+					title: '提示',
+					confirmText: '删除',
+					cancelText: '取消',
+					content: '是否删除此记录？',
+					success: function(res) {
+						// 判断点击删除还是取消
+						if (res.confirm) {
+							// 点击删除，删除数组中对应元素
+							historyList.splice(index, 1)
+							// 调用 uni.setStorageSync(key, value) 将搜索历史记录持久化存储到本地
+							uni.setStorageSync('kw', JSON.stringify(historyList))
+							uni.$showMsg('删除成功！')
+						} else if (res.cancel) {
+>>>>>>> goodslist
 							uni.$showMsg('已取消！')
 						}
 					}
