@@ -27,7 +27,7 @@
 			</view>
 			<!-- 列表区域 -->
 			<view class="history-list">
-				<uni-tag :text="item" v-for="(item, i) in historys" :key="i" @click="gotoGoodsList(item)"></uni-tag>
+				<uni-tag :text="item" v-for="(item, i) in historys" :key="i" @click="gotoGoodsList(item)" @longpress="onLongPress(historyList,item)"></uni-tag>
 			</view>
 		</view>
 
@@ -119,6 +119,29 @@
 			gotoGoodsList(kw) {
 				uni.navigateTo({
 					url: '/subpkg/goods_list/goods_list?query=' + kw
+				})
+			},
+			// 长按关键词删除(传参：数组historyList和索引i)
+			onLongPress(historyList,i){
+				// 拿到数组下标
+				var index = historyList.indexOf(i)
+				uni.showModal({
+					title:'提示',
+					confirmText: '删除',
+					cancelText: '取消',
+					content:'是否删除此记录？',
+					success:function(res){
+						// 判断点击删除还是取消
+						if(res.confirm){
+							// 点击删除，删除数组中对应元素
+							historyList.splice(index,1)
+							// 调用 uni.setStorageSync(key, value) 将搜索历史记录持久化存储到本地
+							uni.setStorageSync('kw', JSON.stringify(historyList))
+							uni.$showMsg('删除成功！')
+						}else if(res.cancel){
+							uni.$showMsg('已取消！')
+						}
+					}
 				})
 			}
 		},
