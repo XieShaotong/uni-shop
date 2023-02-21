@@ -137,11 +137,13 @@
 							// 点击删除，删除数组中对应元素
 							historyList.splice(index, 1)
 							// 调用 uni.setStorageSync(key, value) 将搜索历史记录持久化存储到本地
-							uni.setStorageSync('kw', JSON.stringify(historyList))
+							uni.setStorageSync('kw', JSON.stringify(
+								historyList))
 							uni.$showMsg('删除成功！')
 						} else if (res.cancel) {
 							uni.$showMsg('已取消！')
 						}
+
 					}
 				})
 			}
