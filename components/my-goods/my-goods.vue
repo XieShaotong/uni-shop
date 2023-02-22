@@ -2,6 +2,8 @@
 	<view class="goods-item">
 		<!-- 商品左侧图片区域 -->
 		<view class="goods-item-left">
+			<!-- 复选框 -->
+			<radio :checked="goods.goods_state" color="#c00000" v-if="showRadio"></radio>
 			<image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
 		</view>
 		<!-- 商品右侧信息区域 -->
@@ -27,6 +29,12 @@
 				// 指定默认值
 				defaul: {},
 			},
+			// 是否展示图片左侧的 radio
+			showRadio: {
+				type: Boolean,//类型：布尔值
+				// 如果外界没有指定 show-radio 属性的值，则默认不展示 radio 组件
+				default: false
+			}
 		},
 		data() {
 			return {
@@ -51,6 +59,11 @@
 
 		.goods-item-left {
 			margin-right: 5px;
+			display: flex;
+			// 两端贴边对齐
+			justify-content: space-between;
+			// 纵向上居中对齐
+			align-items: center;
 
 			.goods-pic {
 				width: 100px;
