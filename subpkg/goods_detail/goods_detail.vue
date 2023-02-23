@@ -4,7 +4,7 @@
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(item, i) in goods_info.pics" :key="i">
 				<!-- 把当前点击的图片的索引，传递到 preview() 处理函数中 -->
-				<image :src="item.pics_big" @click="preview(i)"></image>
+				<image :src="item.pics_big" @click="preview(i)" @longpress="longpress(i)"></image>
 			</swiper-item>
 		</swiper>
 
@@ -152,7 +152,17 @@
 					// 预览时，默认显示图片的索引
 					current: i,
 					// 所有图片 url 地址的数组
-					urls: this.goods_info.pics.map(x => x.pics_big)
+					urls: this.goods_info.pics.map(x => x.pics_big),
+					// 长按图片进行保存，转发，收藏操作
+					longPressActions: {
+						itemList: ['发送给朋友', '保存图片', '收藏'],
+						success: function(data) {
+							console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
+						},
+						fail: function(err) {
+							console.log(err.errMsg);
+						}
+					}
 				})
 			},
 			// 左侧按钮的点击事件处理函数		 点击跳转到购物车页面
