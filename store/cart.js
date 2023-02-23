@@ -35,6 +35,37 @@ export default {
 		saveToStorage(state) {
 			// 调用小程序提供的API	向本地存数据，命名cart，数组state.cart转成字符串
 			uni.setStorageSync('cart', JSON.stringify(state.cart))
+		},
+		// 更新购物车中商品的勾选状态
+		updateGoodsState(state, goods) {
+			// 根据 goods_id 查询购物车中对应商品的信息对象
+			const findResult = state.cart.find(x => x.goods_id === goods.goods_id)
+			// 有对应的商品信息对象
+			if (findResult) {
+				// 更新对应商品的勾选状态
+				findResult.goods_state = goods.goods_state
+				// 持久化存储到本地
+				this.commit('m_cart/saveToStorage')
+			}
+		},
+		// 更新购物车中商品的数量
+		updateGoodsCount(state, goods){
+			// 根据 goods_id 查询购物车中对应商品的信息对象
+			const findResult = state.cart.find(x => x.goods_id === goods.goods_id)
+			
+			if(findResult){
+				// 更新对应商品的数量
+				findResult.goods_count = goods.goods_count
+				// 持久化存储到本地
+				this.commit('m_cart/saveToStorage')
+			}
+		},
+		// 根据 Id 从购物车中删除对应的商品信息
+		removeGoodsById(state, goods){			
+			// 调用数组的 filter 方法进行过滤（将传过来的id和cart数组的id比较，把不相等的id重新赋值给cart）
+			state.cart = state.cart.filter(x => x.goods_id !== goods.goods_id)
+			// 持久化存储到本地
+			this.commit('m_cart/saveToStorage')
 		}
 	},
 

@@ -3,7 +3,8 @@
 		<!-- 商品左侧图片区域 -->
 		<view class="goods-item-left">
 			<!-- 复选框 -->
-			<radio :checked="goods.goods_state" color="#c00000" v-if="showRadio"></radio>
+			<!-- 为 radio 组件绑定 @click 事件处理函数 -->
+			<radio :checked="goods.goods_state" color="#c00000" v-if="showRadio" @click="radioClickHandler"></radio>
 			<image :src="goods.goods_small_logo || defaultPic" class="goods-pic"></image>
 		</view>
 		<!-- 商品右侧信息区域 -->
@@ -13,6 +14,9 @@
 			<view class="goods-info-box">
 				<!-- 商品价格 -->
 				<view class="goods-price">￥{{goods.goods_price | tofixed}}</view>
+				<!-- 商品数量:min最小值，:value动态绑定数量 -->
+				<!-- 绑定 @change 事件处理函数 -->
+				<uni-number-box :min="1" :value="goods.goods_count" v-if="showNum" @change="numberChangeHandler"></uni-number-box>
 			</view>
 		</view>
 	</view>
@@ -31,10 +35,16 @@
 			},
 			// 是否展示图片左侧的 radio
 			showRadio: {
-				type: Boolean,//类型：布尔值
-				// 如果外界没有指定 show-radio 属性的值，则默认不展示 radio 组件
+				type: Boolean, //类型：布尔值
+				// 如果外界没有指定 showradio 属性的值，则默认不展示 radio 组件
 				default: false
-			}
+			},
+			// 是否展示价格右侧的 NumberBox 组件
+			showNum: {
+				type: Boolean,//类型：布尔值
+				// 如果外界没有指定 showNum 属性的值，则默认不展示 radio 组件
+				default: false,
+			},
 		},
 		data() {
 			return {
@@ -46,6 +56,29 @@
 			// 把数字处理为带两位小数点的数字
 			tofixed(num) {
 				return Number(num).toFixed(2)
+			}
+		},
+		methods: {
+			// radio 组件的点击事件处理函数
+			radioClickHandler() {
+				// 通过 this.$emit() 触发外界通过 @ 绑定的 radio-change 事件，
+				// 同时把商品的 Id 和 勾选状态 作为参数传递给 radio-change 事件处理函数
+				this.$emit('radio-change', {
+					// 商品的 Id
+					goods_id: this.goods.goods_id,
+					// 商品最新的勾选状态
+					goods_state: this.goods.goods_state = !this.goods.goods_state
+				})
+			},
+			// 监听到NumberBox 组件的 change 事件处理函数
+			numberChangeHandler(val){
+				// 通过 this.$emit() 触发外界通过 @ 绑定的 num-change 事件
+				this.$emit('num-change',{
+					// 商品的 Id
+					goods_id: this.goods.goods_id,
+					// 商品的最新数量(+val：转成真正的数值)
+					goods_count: +val
+				})
 			}
 		}
 	}
@@ -74,6 +107,8 @@
 
 		.goods-item-right {
 			display: flex;
+			// 沾满剩余区域
+			flex: 1;
 			flex-direction: column;
 			justify-content: space-between;
 
@@ -81,9 +116,15 @@
 				font-size: 13px;
 			}
 
-			.goods-price {
-				font-size: 16px;
-				color: #c00000;
+			.goods-info-box {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.goods-price {
+					font-size: 16px;
+					color: #c00000;
+				}
 			}
 		}
 	}
