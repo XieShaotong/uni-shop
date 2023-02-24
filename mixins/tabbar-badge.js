@@ -19,6 +19,13 @@ export default {
         index: 2,
         text: this.total + '', // 注意：text 的值必须是字符串，不能是数字
       })
+	  // 判断购物车数量
+	  if(this.total == 0){
+		  // 如果购物车数量为 0 则隐藏tabBar右上角数字徽标(红点)
+		  uni.hideTabBarRedDot({
+		  	index: 2
+		  })
+	  }
     },
   },
 }

@@ -69,6 +69,8 @@
 			swipeActionClickHandler(e){
 				// 调用removeGoodsById方法，将商品id传入，删除
 				this.removeGoodsById(e)
+				// 实现左滑删除商品，tabbar的数字徽标跟着变化
+				this.setBadge()
 			}
 		}
 	}

@@ -64,6 +64,7 @@ export default {
 		removeGoodsById(state, goods){			
 			// 调用数组的 filter 方法进行过滤（将传过来的id和cart数组的id比较，把不相等的id重新赋值给cart）
 			state.cart = state.cart.filter(x => x.goods_id !== goods.goods_id)
+			
 			// 持久化存储到本地
 			this.commit('m_cart/saveToStorage')
 		}
