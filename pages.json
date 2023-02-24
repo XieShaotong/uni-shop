@@ -36,6 +36,10 @@
 
 		}]
 	}],
+	// 开启获取用户收货地址
+	"requiredPricateInfos": [
+		"chooseAddress"
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "黑马优购",

@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<!-- 使用收货地址组件 -->
+		<my-address></my-address>
+		
 		<!-- 这是商品列表的标题区域 -->
 		<view class="cart-title">
 			<!-- 左侧图标 -->
