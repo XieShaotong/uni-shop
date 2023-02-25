@@ -37,12 +37,12 @@
 		}]
 	}],
 	// 开启获取用户收货地址
-	"requiredPricateInfos": [
+	"requiredPrivateInfos": [ 
 		"chooseAddress"
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "黑马优购",
+		"navigationBarTitleText": "微购",
 		"navigationBarBackgroundColor": "#C00000",
 		"backgroundColor": "#FFFFFF",
 		"app-plus": {
