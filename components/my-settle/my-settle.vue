@@ -7,7 +7,7 @@
 		</label>
 		<!-- 合计区域 -->
 		<view class="amount-box">
-			合计:<text class="amount">￥1234.00</text>
+			合计:<text class="amount">￥{{checkedGoodsAmount}}</text>
 		</view>
 		<!-- 结算按钮 -->
 		<view class="btn-settle">结算({{checkedCount}})</view>
@@ -25,7 +25,8 @@
 		computed: {
 			// 2. 使用 mapGetters 辅助函数，把 m_cart 模块提供的 checkedCount 方法映射到当前组件中使用
 			// 2. 使用 mapGetters 辅助函数，把 m_cart 模块提供的 total 方法映射到当前组件中使用
-			...mapGetters('m_cart', ['checkedCount', 'total']),
+			// 2. 使用 mapGetters 辅助函数，把 m_cart 模块提供的 checkedGoodsAmount 方法映射到当前组件中使用
+			...mapGetters('m_cart', ['checkedCount', 'total', 'checkedGoodsAmount']),
 			
 			// 2. 是否全选（判断当前选中总数 == 全部总数）
 			isFullCheck(){

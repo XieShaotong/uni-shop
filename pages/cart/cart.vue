@@ -1,5 +1,5 @@
 <template>
-	<view class="cart-container">
+	<view class="cart-container" v-if="cart.length !== 0">
 		<!-- 使用收货地址组件 -->
 		<my-address></my-address>
 		
@@ -28,6 +28,12 @@
 		<!-- 使用自定义的结算组件 -->
 		<my-settle></my-settle>
 		
+	</view>
+	
+	<!-- 空白购物车区域 -->
+	<view class="empty-cart" v-else>
+		<image src="/static/cart.png" class="empty-img"></image>
+	    <text class="tip-text">购物车空空如也~</text>
 	</view>
 </template>
 
@@ -75,8 +81,8 @@
 			swipeActionClickHandler(e){
 				// 调用removeGoodsById方法，将商品id传入，删除
 				this.removeGoodsById(e)
-				// 实现左滑删除商品，tabbar的数字徽标跟着变化
-				this.setBadge()
+				// 实现左滑删除商品，tabbar的数字徽标跟着变化（已在tabBar-badge.js用监听器代替）
+				// this.setBadge()
 			}
 		}
 	}
@@ -97,6 +103,26 @@
 			font-size: 14px;
 			margin-left: 10px;
 			
+		}
+	}
+	
+	.empty-cart {// 空白购物车区域
+		display: flex;
+		// 纵向布局
+		flex-direction: column;
+		// 横向居中
+		align-items: center;
+		padding-top: 150px;
+	
+		.empty-img {// 空白购物车的图片
+			width: 90px;
+			height: 90px;
+		}
+	
+		.tip-text {// 空白购物车的文本
+			font-size: 12px;
+			color: gray;
+			margin-top: 15px;
 		}
 	}
 </style>

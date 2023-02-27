@@ -64,13 +64,12 @@
 				if (err === null && succ.errMsg === 'chooseAddress:ok') {
 					// 为 data 里面的收货地址对象赋值    3.2 把下面这行代码注释掉，使用 3.3 中的代码替代之
 					// this.address = succ
-
 					// 3.3 调用 Store 中提供的 updateAddress 方法，将 address 保存到 Store 里面
 					this.updateAddress(succ)
 				}
 
 				// 3. 用户没有授权（安卓：chooseAddress:fail auth deny iOS：chooseAddress:fail authorize no response）
-				if (err && err.errMsg === 'chooseAddress:fail auth deny' || err.errMsg === 'chooseAddress:fail authorize no response') {
+				if (err === 'chooseAddress:fail auth deny' || err === 'chooseAddress:fail authorize no response') {
 					this.reAuth() // 调用 this.reAuth() 方法，向用户重新发起授权申请
 				}
 			},

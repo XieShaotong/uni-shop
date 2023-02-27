@@ -7,6 +7,13 @@ export default {
 	  // 将 m_cart 模块中的 total 映射为当前页面的计算属性
     ...mapGetters('m_cart', ['total']),
   },
+  watch: {
+	  // 监听total值的变化
+	  total(){
+		  // 调用methods中的setBadge方法，重新为tabbar的数字徽章赋值
+		  this.setBadge()
+	  }
+  },
   // 在页面刚显示出来的时候，立即调用 setBadge 方法，为 tabBar 设置数字徽标
   onShow() {
     // 在页面刚展示的时候，设置数字徽标
